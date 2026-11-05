@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Boda de Sofía & Daniel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pino:#1f2e2a; --salvia:#8fa394; --rubor:#ecd9d3; --oro:#b8955a; --papel:#f6f4f3;
+    --serif:'Cormorant Garamond',Georgia,serif; --sans:'Jost',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);font-weight:300;color:var(--pino);background:var(--papel);line-height:1.7;overflow-x:hidden}
+  body.bloqueado{overflow:hidden}
+  h1,h2{font-family:var(--serif);font-weight:400;line-height:1.1}
+  h2{font-size:clamp(2rem,6vw,3rem);margin-bottom:1rem}
+  section{padding:5rem 1.5rem;max-width:860px;margin:0 auto;text-align:center}
+  p{max-width:52ch;margin:0 auto 1rem}
+  .btn{display:inline-block;font:500 .95rem var(--sans);letter-spacing:.04em;padding:.9rem 2rem;border:1px solid var(--oro);background:var(--pino);color:var(--papel);border-radius:999px;cursor:pointer;text-decoration:none;transition:background .2s,color .2s}
+  .btn:hover,.btn:focus-visible{background:var(--oro);color:var(--pino)}
+  .btn.claro{background:transparent;color:var(--pino)}
+  .btn.claro:hover{background:var(--pino);color:var(--papel)}
+  :focus-visible{outline:2px solid var(--oro);outline-offset:3px}
+
+  /* Portada (el momento memorable) */
+  #portada{position:fixed;inset:0;z-index:50;background:var(--pino);color:var(--papel);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;transition:transform 1.2s cubic-bezier(.7,0,.2,1)}
+  #portada.abierta{transform:translateY(-100%)}
+  #portada .nombres{font-family:var(--serif);font-style:italic;font-size:clamp(3rem,14vw,7rem);line-height:1}
+  #portada .y{display:block;font-size:.4em;color:var(--oro);margin:.2em 0}
+  #portada .fecha{margin:1.8rem 0 2.2rem;letter-spacing:.2em;color:var(--rubor)}
+  #portada .btn{background:transparent;color:var(--papel)}
+  #portada .btn:hover{background:var(--oro);color:var(--pino)}
+
+  /* Hero */
+  #hero{min-height:100svh;max-width:none;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--papel);
+    background:linear-gradient(rgba(31,46,42,.55),rgba(31,46,42,.75)),url("fotos/portada.jpg") center/cover,var(--pino)}
+  #hero h1{font-size:clamp(3rem,13vw,7rem);font-style:italic}
+  #hero p{color:var(--rubor);letter-spacing:.15em}
+
+  /* Cuenta regresiva */
+  #cuenta{background:var(--rubor);max-width:none}
+  .contador{display:flex;justify-content:center;gap:clamp(.8rem,4vw,2.5rem);margin-top:1.5rem}
+  .contador div{min-width:64px}
+  .contador b{display:block;font:400 clamp(2.4rem,10vw,4.5rem)/1 var(--serif);color:var(--pino)}
+  .contador span{font-size:.85rem;color:#5a6b63}
+
+  /* Galería */
+  .galeria{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.6rem;margin-top:2rem}
+  .galeria button{aspect-ratio:1;border:0;padding:0;overflow:hidden;border-radius:6px;cursor:zoom-in;background:linear-gradient(135deg,var(--salvia),var(--rubor))}
+  .galeria img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+  .galeria button:hover img{transform:scale(1.06)}
+  #visor{position:fixed;inset:0;background:rgba(15,22,20,.94);display:none;align-items:center;justify-content:center;z-index:60;padding:1rem}
+  #visor.activo{display:flex}
+  #visor img{max-width:100%;max-height:90vh;border-radius:4px}
+  #visor button{position:absolute;top:1rem;right:1.2rem;background:none;border:0;color:#fff;font-size:2.4rem;cursor:pointer}
+
+  /* Ubicación y datos */
+  .lugares{display:grid;gap:2rem;margin-top:2rem}
+  @media(min-width:700px){.lugares{grid-template-columns:1fr 1fr}}
+  .lugar{padding:2rem 1.5rem;border-top:1px solid var(--oro)}
+  .foto-lugar{aspect-ratio:4/3;border-radius:8px;overflow:hidden;margin-bottom:1.2rem;background:linear-gradient(135deg,var(--salvia),var(--rubor))}
+  .foto-lugar img{width:100%;height:100%;object-fit:cover;display:block}
+  .lugar h3{font:600 1.6rem var(--serif);margin-bottom:.3rem}
+  .lugar .hora{color:var(--oro);font-weight:500;margin-bottom:.6rem}
+  .lugar .btn{margin-top:.8rem}
+
+  /* Confirmación */
+  #confirmar{background:var(--pino);color:var(--papel);max-width:none}
+  #confirmar form{max-width:420px;margin:2rem auto 0;display:grid;gap:1rem;text-align:left}
+  label{font-size:.9rem;color:var(--rubor)}
+  input,select{width:100%;font:400 1rem var(--sans);padding:.8rem 1rem;border-radius:8px;border:1px solid var(--salvia);background:transparent;color:var(--papel)}
+  select option{color:#000}
+  input::placeholder{color:#9db0a5}
+  #confirmar .btn{background:var(--oro);color:var(--pino);border-color:var(--oro);justify-self:center;margin-top:.5rem}
+  footer{padding:2rem;text-align:center;font-size:.85rem;color:#5a6b63}
+
+  /* Botón de música */
+  #musica{position:fixed;right:1rem;bottom:1rem;z-index:40;width:48px;height:48px;border-radius:50%;border:1px solid var(--oro);background:var(--pino);color:var(--papel);font-size:1.3rem;cursor:pointer;display:none}
+  #musica.visible{display:block}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body class="bloqueado">
+
+<!-- Portada: al tocar el botón se abre y arranca la música -->
+<div id="portada">
+  <p class="nombres">Sofía<span class="y">y</span>Daniel</p>
+  <p class="fecha" id="fechaPortada"></p>
+  <button class="btn" id="abrir">Abrir invitación</button>
+</div>
+
+<button id="musica" aria-label="Pausar o reproducir música">♪</button>
+<audio id="audio" src="musica.mp3" loop preload="auto"></audio>
+
+<section id="hero">
+  <p>Nos casamos</p>
+  <h1>Sofía & Daniel</h1>
+  <p id="fechaHero"></p>
+</section>
+
+<section id="historia">
+  <h2>Te invitamos a celebrar con nosotros</h2>
+  <p>Después de tantos momentos juntos, damos el siguiente paso y queremos compartirlo contigo. Tu presencia es el mejor regalo.</p>
+</section>
+
+<section id="cuenta">
+  <h2>Faltan</h2>
+  <div class="contador" aria-live="off">
+    <div><b id="d">0</b><span>días</span></div>
+    <div><b id="h">0</b><span>horas</span></div>
+    <div><b id="m">0</b><span>minutos</span></div>
+    <div><b id="s">0</b><span>segundos</span></div>
+  </div>
+</section>
+
+<section id="lugares">
+  <h2>Dónde y cuándo</h2>
+  <div class="lugares">
+    <div class="lugar">
+      <div class="foto-lugar"><img src="fotos/ceremonia.jpg" alt="Lugar de la ceremonia" loading="lazy" onerror="this.remove()"></div>
+      <h3>Ceremonia</h3>
+      <p class="hora">4:00 p. m.</p>
+      <p>Parroquia de San José<br>Av. Reforma 123, Centro, Puebla</p>
+      <a class="btn claro" target="_blank" rel="noopener" id="mapaCeremonia">Ver ubicación</a>
+    </div>
+    <div class="lugar">
+      <div class="foto-lugar"><img src="fotos/recepcion.jpg" alt="Lugar de la recepción" loading="lazy" onerror="this.remove()"></div>
+      <h3>Recepción</h3>
+      <p class="hora">6:30 p. m.</p>
+      <p>Hacienda Los Jardines<br>Camino Real s/n, Cholula, Puebla</p>
+      <a class="btn claro" target="_blank" rel="noopener" id="mapaRecepcion">Ver ubicación</a>
+    </div>
+  </div>
+  <p style="margin-top:2rem">Código de vestimenta: formal.</p>
+</section>
+
+<section id="galeria">
+  <h2>Nuestra historia</h2>
+  <div class="galeria" id="grid"></div>
+</section>
+
+<section id="confirmar">
+  <h2>¿Nos acompañas?</h2>
+  <p>Confirma tu asistencia antes del 1 de marzo. Se abrirá WhatsApp con tu respuesta lista para enviar.</p>
+  <form id="form">
+    <div><label for="nombre">Tu nombre</label><input id="nombre" required placeholder="Nombre y apellido"></div>
+    <div><label for="asisten">Personas que asisten</label>
+      <select id="asisten"><option>1</option><option>2</option><option>3</option><option>4</option><option>No podré asistir</option></select></div>
+    <div><label for="nota">Mensaje (opcional)</label><input id="nota" placeholder="Alergias, mensaje para los novios…"></div>
+    <button class="btn" type="submit">Confirmar por WhatsApp</button>
+  </form>
+</section>
+
+<footer>Con cariño, Sofía y Daniel</footer>
+
+<div id="visor" role="dialog" aria-label="Foto ampliada"><button aria-label="Cerrar">×</button><img alt=""></div>
+
+<script>
+/* ============ CONFIGURACIÓN: edita solo esta parte ============ */
+const CONFIG = {
+  fechaBoda: "2027-06-12T16:00:00",          // AAAA-MM-DDTHH:MM:SS (hora local)
+  whatsapp: "522221234567",                   // código de país + número, sin + ni espacios (52 = México)
+  mapaCeremonia: "https://www.google.com/maps/search/?api=1&query=Parroquia+San+Jose+Puebla",
+  mapaRecepcion: "https://www.google.com/maps/search/?api=1&query=Hacienda+Cholula+Puebla",
+  fotos: ["fotos/1.jpg","fotos/2.jpg","fotos/3.jpg","fotos/4.jpg","fotos/5.jpg","fotos/6.jpg"]
+};
+/* ============================================================= */
+
+const $ = id => document.getElementById(id);
+const fecha = new Date(CONFIG.fechaBoda);
+const textoFecha = fecha.toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'});
+$('fechaPortada').textContent = textoFecha;
+$('fechaHero').textContent = textoFecha;
+$('mapaCeremonia').href = CONFIG.mapaCeremonia;
+$('mapaRecepcion').href = CONFIG.mapaRecepcion;
+
+/* Cuenta regresiva */
+function actualizar(){
+  let t = Math.max(0, fecha - new Date());
+  $('d').textContent = Math.floor(t/864e5);
+  $('h').textContent = Math.floor(t/36e5)%24;
+  $('m').textContent = Math.floor(t/6e4)%60;
+  $('s').textContent = Math.floor(t/1e3)%60;
+}
+actualizar(); setInterval(actualizar,1000);
+
+/* Música: el navegador solo permite audio tras un toque, por eso la portada */
+const audio = $('audio'), btnMusica = $('musica');
+$('abrir').addEventListener('click',()=>{
+  $('portada').classList.add('abierta');
+  document.body.classList.remove('bloqueado');
+  btnMusica.classList.add('visible');
+  audio.volume = .6;
+  audio.play().catch(()=>{});
+});
+btnMusica.addEventListener('click',()=>{
+  if(audio.paused){audio.play();btnMusica.textContent='♪'}else{audio.pause();btnMusica.textContent='×'}
+});
+
+/* Galería con visor */
+const grid = $('grid'), visor = $('visor'), visorImg = visor.querySelector('img');
+CONFIG.fotos.forEach((src,i)=>{
+  const b = document.createElement('button');
+  b.setAttribute('aria-label','Ver foto '+(i+1));
+  const img = new Image(); img.src = src; img.alt = 'Foto '+(i+1); img.loading = 'lazy';
+  img.onerror = () => img.remove();
+  b.appendChild(img);
+  b.onclick = () => { if(!img.isConnected) return; visorImg.src = src; visor.classList.add('activo'); };
+  grid.appendChild(b);
+});
+visor.onclick = () => visor.classList.remove('activo');
+document.addEventListener('keydown',e=>{if(e.key==='Escape')visor.classList.remove('activo')});
+
+/* Confirmación por WhatsApp */
+$('form').addEventListener('submit',e=>{
+  e.preventDefault();
+  const nombre = $('nombre').value.trim(), n = $('asisten').value, nota = $('nota').value.trim();
+  const asiste = n === 'No podré asistir'
+    ? 'lamentablemente no podré asistir'
+    : `confirmo mi asistencia (${n} ${n==='1'?'persona':'personas'})`;
+  const msg = `Hola, soy ${nombre} y ${asiste} a la boda de Sofía y Daniel.` + (nota ? ` ${nota}` : '');
+  window.open(`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`,'_blank');
+});
+</script>
+</body>
+</html>
