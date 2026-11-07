@@ -2,143 +2,206 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f7f4ee">
-  <meta name="description" content="Una invitación especial para celebrar el amor.">
-  <title>Paty &amp; Eddy | Nuestra boda</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0b0c">
+  <meta name="description" content="Invitación a la boda de Paty y Edy.">
+  <title>Paty &amp; Edy | Nuestra boda</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <script src="js/config.js" defer></script>
   <script src="js/main.js" defer></script>
+  <noscript><style>.invitation-gate{display:none!important}body.gate-locked{overflow:auto!important}</style></noscript>
 </head>
 <body class="gate-locked">
-  <div class="invitation-gate" id="invitationGate" aria-label="Abrir invitación">
-    <div class="gate-glow" aria-hidden="true"></div>
-    <div class="gate-card">
-      <p class="eyebrow">UNA CELEBRACIÓN, UNA HISTORIA</p>
-      <div class="gate-monogram" aria-hidden="true"><span data-text="partnerOne">Paty</span><i>&amp;</i><span data-text="partnerTwo">Eddy</span></div>
-      <div class="cover__rule"><span></span><b>✦</b><span></span></div>
-      <p class="gate-caption">Tenemos algo especial que compartir contigo</p>
-      <button class="button button--light gate-open" id="openInvitation" type="button">Descubrir invitación <span aria-hidden="true">↗</span></button>
-      <p class="gate-footnote">CON TODO NUESTRO CARIÑO</p>
-    </div>
-  </div>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
-  <header class="cover" id="inicio">
-    <div class="cover__ornament" aria-hidden="true">✳</div>
-    <p class="eyebrow" data-text="intro">CON ALEGRÍA EN EL CORAZÓN</p>
-    <p class="cover__names"><span data-text="partnerOne">Paty</span><i>&amp;</i><span data-text="partnerTwo">Eddy</span></p>
-    <div class="cover__rule"><span></span><b>✦</b><span></span></div>
-    <p class="cover__date" id="coverDate">PRONTO COMPARTIREMOS LA FECHA</p>
-    <p class="cover__small">NOS ENCANTARÍA CELEBRAR CONTIGO</p>
-  </header>
+  <!-- PORTADA + VERSÍCULO -->
+  <div class="invitation-gate" id="invitationGate" role="dialog" aria-modal="true" aria-labelledby="gateNames">
+    <div class="gate-panel gate-panel--left" aria-hidden="true"></div>
+    <div class="gate-panel gate-panel--right" aria-hidden="true"></div>
+    <div class="gate-seam" aria-hidden="true"></div>
+    <div class="gate-card">
+      <div class="gate-ornament" aria-hidden="true">✦</div>
+      <p class="eyebrow">NUESTRA BODA</p>
+      <h1 class="gate-names" id="gateNames">
+        <span data-text="partnerOne">Paty</span><i aria-hidden="true">&amp;</i><span data-text="partnerTwo">Edy</span>
+      </h1>
+      <div class="rule" aria-hidden="true"><span></span><b>✦</b><span></span></div>
+      <figure class="verse">
+        <blockquote class="verse__text" data-verse="text">«Porque yo sé los planes que tengo para ustedes, dice el Señor, planes de bienestar y no de mal, para darles un futuro y una esperanza».</blockquote>
+        <figcaption class="verse__ref" data-verse="reference">Jeremías 29:11</figcaption>
+      </figure>
+      <div class="envelope" id="envelope" aria-hidden="true">
+        <svg class="envelope__back" viewBox="0 0 260 180" preserveAspectRatio="none"><rect x=".5" y=".5" width="259" height="179"/></svg>
+        <div class="envelope__letter"><span data-text="initials">P&amp;E</span><i></i></div>
+        <svg class="envelope__front" viewBox="0 0 260 180" preserveAspectRatio="none"><polygon points="0,0 130,98 260,0 260,180 0,180"/></svg>
+        <svg class="envelope__flap" viewBox="0 0 260 100" preserveAspectRatio="none"><polygon points="0,0 260,0 130,98"/></svg>
+        <div class="envelope__seal"><span data-text="initials">P&amp;E</span></div>
+      </div>
+      <div class="gate-open-wrap">
+        <button class="button button--gold gate-open" id="openInvitation" type="button">
+          <span class="gate-open__label">Descubrir invitación</span>
+          <span class="gate-open__arrow" aria-hidden="true">→</span>
+          <span class="gate-open__shine" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+  </div>
 
-  <main id="contenido" tabindex="-1">
-    <section class="welcome section-shell">
-      <p class="eyebrow">UN DÍA PARA RECORDAR</p>
-      <h1>¡Nos casamos!</h1>
-      <p class="welcome__copy">Hay momentos que se vuelven inolvidables cuando se comparten con las personas que queremos. Nos hará muy felices que formes parte de este día tan especial.</p>
-      <div class="signature"><span>Con cariño,</span><strong data-text="couple">Paty &amp; Eddy</strong></div>
-    </section>
+  <div id="app">
+    <header class="cover" id="inicio">
+      <p class="eyebrow" data-text="intro">CON ALEGRÍA EN EL CORAZÓN</p>
+      <p class="cover__names" aria-label="Paty y Edy"><span data-text="partnerOne">Paty</span><i aria-hidden="true">&amp;</i><span data-text="partnerTwo">Edy</span></p>
+      <div class="rule" aria-hidden="true"><span></span><b>✦</b><span></span></div>
+      <p class="cover__date" id="coverDate">PRONTO COMPARTIREMOS LA FECHA</p>
+      <a class="scroll-hint" id="scrollHint" href="#contenido" aria-label="Seguir leyendo la invitación"><span></span></a>
+    </header>
 
-    <section class="countdown-band" aria-labelledby="countdownTitle">
-      <div class="section-shell">
+    <main id="contenido" tabindex="-1">
+      <!-- 1. Bienvenida -->
+      <section class="welcome section-shell" aria-labelledby="welcomeTitle">
+        <p class="eyebrow">UN DÍA PARA RECORDAR</p>
+        <h2 id="welcomeTitle">¡Nos casamos!</h2>
+        <p class="lead">Hay momentos que se vuelven inolvidables cuando se comparten con las personas que queremos. Será un honor que nos acompañes a celebrar esta nueva etapa de nuestras vidas.</p>
+        <div class="signature"><span>Con cariño,</span><strong data-text="couple">Paty &amp; Edy</strong></div>
+      </section>
+
+      <!-- 2. Ubicación -->
+      <section class="location band" id="ubicacion" aria-labelledby="locationTitle">
+        <div class="section-shell">
+          <div class="pin" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.1-7-11.2A7 7 0 0 1 19 9.8C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.8" r="2.4"/></svg>
+          </div>
+          <p class="eyebrow">DÓNDE CELEBRAREMOS</p>
+          <h2 id="locationTitle">Ubicación del evento</h2>
+          <p class="location__name" id="venueName">Ubicación por confirmar</p>
+          <p class="location__address" id="venueAddress" hidden></p>
+          <a class="button button--outline" id="venueMap" href="#" target="_blank" rel="noopener noreferrer" hidden>Ver ubicación en Google Maps <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+
+      <!-- 3. Cuenta regresiva -->
+      <section class="countdown-section section-shell" aria-labelledby="countdownTitle">
         <p class="eyebrow">LA CUENTA REGRESIVA COMIENZA</p>
         <h2 id="countdownTitle">Cada vez falta menos</h2>
-        <div class="countdown" id="countdown" aria-live="polite">
+        <div class="countdown" id="countdown" role="timer" aria-label="Tiempo restante para la boda">
           <div><strong id="days">--</strong><span>DÍAS</span></div>
           <div><strong id="hours">--</strong><span>HORAS</span></div>
           <div><strong id="minutes">--</strong><span>MINUTOS</span></div>
           <div><strong id="seconds">--</strong><span>SEGUNDOS</span></div>
         </div>
-        <p class="muted-note" id="countdownNote">La fecha de la celebración se anunciará próximamente.</p>
-      </div>
-    </section>
+        <p class="muted-note" id="countdownNote" role="status">La fecha de la celebración se anunciará próximamente.</p>
+      </section>
 
-    <section class="details section-shell" id="detalles">
-      <p class="eyebrow">RESERVA LA FECHA</p>
-      <h2>Un encuentro especial</h2>
-      <p class="section-intro">Estamos preparando cada detalle para compartir un día lleno de alegría. Aquí encontrarás la información de la celebración.</p>
-      <div class="event-grid">
-        <article class="event-card">
-          <div class="event-card__icon" aria-hidden="true">♡</div>
-          <p class="eyebrow">CEREMONIA</p>
-          <h3 id="ceremonyTime">Horario por confirmar</h3>
-          <p class="event-card__place" id="ceremonyVenue">Lugar por confirmar</p>
-          <p class="event-card__address" id="ceremonyAddress">Próximamente compartiremos la dirección.</p>
-          <a class="text-link" id="ceremonyMap" href="#" target="_blank" rel="noopener" hidden>Ver ubicación ↗</a>
-        </article>
-        <article class="event-card">
-          <div class="event-card__icon" aria-hidden="true">✧</div>
-          <p class="eyebrow">RECEPCIÓN</p>
-          <h3 id="receptionTime">Horario por confirmar</h3>
-          <p class="event-card__place" id="receptionVenue">Lugar por confirmar</p>
-          <p class="event-card__address" id="receptionAddress">Próximamente compartiremos la dirección.</p>
-          <a class="text-link" id="receptionMap" href="#" target="_blank" rel="noopener" hidden>Ver ubicación ↗</a>
-        </article>
-      </div>
-      <div class="dress-code">
-        <span aria-hidden="true">✦</span>
-        <p><strong>Código de vestimenta</strong><br><span id="dressCode">Por confirmar</span></p>
-      </div>
-    </section>
-
-    <section class="gallery-section">
-      <div class="section-shell">
-        <p class="eyebrow">PEQUEÑOS GRANDES MOMENTOS</p>
-        <h2>Un poco de nuestra historia</h2>
-        <p class="section-intro">Algunos recuerdos que nos trajeron hasta aquí.</p>
-        <div class="gallery" id="gallery">
-          <div class="gallery-empty">Pronto compartiremos fotografías especiales.</div>
+      <!-- 4. Detalles -->
+      <section class="details band" id="detalles" aria-labelledby="detailsTitle">
+        <div class="section-shell">
+          <p class="eyebrow">RESERVA LA FECHA</p>
+          <h2 id="detailsTitle">Detalles del evento</h2>
+          <div class="event-grid">
+            <article class="event-card">
+              <p class="eyebrow">CEREMONIA</p>
+              <h3 id="ceremonyTime">Horario por confirmar</h3>
+              <p class="event-card__place" id="ceremonyVenue" hidden></p>
+              <p class="event-card__address" id="ceremonyAddress" hidden></p>
+              <a class="text-link" id="ceremonyMap" href="#" target="_blank" rel="noopener noreferrer" hidden>Ver ubicación ↗</a>
+            </article>
+            <article class="event-card">
+              <p class="eyebrow">RECEPCIÓN</p>
+              <h3 id="receptionTime">Horario por confirmar</h3>
+              <p class="event-card__place" id="receptionVenue" hidden></p>
+              <p class="event-card__address" id="receptionAddress" hidden></p>
+              <a class="text-link" id="receptionMap" href="#" target="_blank" rel="noopener noreferrer" hidden>Ver ubicación ↗</a>
+            </article>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="rsvp section-shell" id="confirmacion">
-      <div class="rsvp__flower" aria-hidden="true">✳</div>
-      <p class="eyebrow">SERÍA UN HONOR CONTAR CONTIGO</p>
-      <h2>¿Nos acompañas?</h2>
-      <p class="section-intro">Cuando tengamos habilitados los datos de confirmación, podrás enviarnos tu respuesta desde aquí.</p>
-      <form id="rsvpForm" class="rsvp-form">
-        <label for="guestName">Nombre completo</label>
-        <input id="guestName" name="guestName" type="text" autocomplete="name" placeholder="Escribe tu nombre" required maxlength="90">
-        <label for="attendance">Confirmación de asistencia</label>
-        <select id="attendance" name="attendance" required>
-          <option value="Sí asistiré">Sí, ahí estaré</option>
-          <option value="No podré asistir">No podré asistir</option>
-        </select>
-        <label for="guestCount">Número de personas (incluyéndote)</label>
-        <select id="guestCount" name="guestCount">
-          <option value="1">1 persona</option><option value="2">2 personas</option>
-          <option value="3">3 personas</option><option value="4">4 personas</option>
-          <option value="5">5 personas</option>
-        </select>
-        <label for="guestMessage">Mensaje para los novios <span>(opcional)</span></label>
-        <textarea id="guestMessage" name="guestMessage" rows="3" maxlength="300" placeholder="Déjanos unas palabras..."></textarea>
-        <button class="button button--dark" type="submit" id="rsvpButton">Confirmar por WhatsApp</button>
-        <p class="form-note" id="rsvpNote" role="status">La confirmación estará disponible cuando se agregue el número de contacto.</p>
-      </form>
-    </section>
-  </main>
+      <!-- 5. Código de vestimenta -->
+      <section class="dress section-shell" id="vestimenta" aria-labelledby="dressTitle">
+        <p class="eyebrow">CÓMO VESTIR</p>
+        <h2 id="dressTitle">Código de vestimenta</h2>
+        <div class="dress-grid">
+          <article class="dress-card">
+            <h3>Mujeres</h3>
+            <p id="dressWomen">Por confirmar</p>
+            <ul class="swatches" id="dressSwatches" aria-label="Colores a evitar"></ul>
+          </article>
+          <article class="dress-card">
+            <h3>Hombres</h3>
+            <p id="dressMen">Por confirmar</p>
+          </article>
+        </div>
+      </section>
 
-  <footer class="footer">
-    <div class="cover__rule"><span></span><b>✦</b><span></span></div>
-    <p>Con amor,</p>
-    <strong data-text="couple">Paty &amp; Eddy</strong>
-    <small>GRACIAS POR SER PARTE DE NUESTRA HISTORIA</small>
-    <a href="#inicio" class="back-top">Volver al inicio ↑</a>
-  </footer>
+      <!-- 6. Galería -->
+      <section class="gallery-section band" id="galeria" aria-labelledby="galleryTitle">
+        <div class="section-shell">
+          <p class="eyebrow">PEQUEÑOS GRANDES MOMENTOS</p>
+          <h2 id="galleryTitle">Nuestra historia</h2>
+          <div class="gallery" id="gallery">
+            <div class="gallery-empty">Pronto compartiremos fotografías especiales.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. Confirmación -->
+      <section class="rsvp section-shell" id="confirmacion" aria-labelledby="rsvpTitle">
+        <p class="eyebrow">SERÍA UN HONOR CONTAR CONTIGO</p>
+        <h2 id="rsvpTitle">¿Nos acompañas?</h2>
+        <p class="lead">Confirma tu asistencia y se abrirá WhatsApp con tu mensaje listo para enviar.</p>
+        <form id="rsvpForm" class="rsvp-form" novalidate>
+          <label for="guestName">Nombre del invitado</label>
+          <input id="guestName" name="guestName" type="text" autocomplete="name" placeholder="Escribe tu nombre" required maxlength="90">
+
+          <fieldset class="choice">
+            <legend>Confirmación de asistencia</legend>
+            <label class="choice__opt"><input type="radio" name="attendance" value="Sí asistiré" checked><span>Sí, ahí estaré</span></label>
+            <label class="choice__opt"><input type="radio" name="attendance" value="No podré asistir"><span>No podré asistir</span></label>
+          </fieldset>
+
+          <div class="field" id="companionsField">
+            <span class="field__label" id="companionsLabel">Número de acompañantes</span>
+            <div class="stepper" role="group" aria-labelledby="companionsLabel">
+              <button type="button" id="guestMinus" aria-label="Un acompañante menos">−</button>
+              <output id="guestCountOut" for="guestMinus guestPlus" aria-live="polite">0</output>
+              <button type="button" id="guestPlus" aria-label="Un acompañante más">+</button>
+            </div>
+            <input type="hidden" id="guestCount" name="guestCount" value="0">
+          </div>
+
+          <label for="guestMessage">Mensaje para los novios <span>(opcional)</span></label>
+          <textarea id="guestMessage" name="guestMessage" rows="3" maxlength="300" placeholder="Déjanos unas palabras..."></textarea>
+
+          <button class="button button--gold button--block" type="submit" id="rsvpButton">Confirmar por WhatsApp</button>
+          <p class="form-note" id="rsvpNote" role="status">La confirmación estará disponible próximamente.</p>
+        </form>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="rule" aria-hidden="true"><span></span><b>✦</b><span></span></div>
+      <p>Con amor,</p>
+      <strong data-text="couple">Paty &amp; Edy</strong>
+      <small>GRACIAS POR SER PARTE DE NUESTRA HISTORIA</small>
+      <a href="#inicio" class="back-top-link">Volver al inicio ↑</a>
+    </footer>
+  </div>
 
   <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
   <canvas class="particle-canvas" id="particleCanvas" aria-hidden="true"></canvas>
-  <button class="back-top-float" id="backTop" type="button" aria-label="Volver al inicio" title="Volver al inicio">↑</button>
+  <button class="back-top-float" id="backTop" type="button" aria-label="Volver al inicio" title="Volver al inicio">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 14 6-6 6 6"/></svg>
+  </button>
 
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Fotografía ampliada" hidden>
     <button class="lightbox__close" id="lightboxClose" type="button" aria-label="Cerrar fotografía">×</button>
+    <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" type="button" aria-label="Fotografía anterior">‹</button>
     <img id="lightboxImage" alt="">
+    <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" type="button" aria-label="Fotografía siguiente">›</button>
+    <p class="lightbox__count" id="lightboxCount" aria-live="polite"></p>
   </div>
 
   <audio id="weddingAudio" preload="metadata"></audio>
@@ -146,9 +209,7 @@
   <aside class="music-player" id="musicPlayer" aria-label="Reproductor de música" hidden>
     <div class="music-player__top">
       <div class="vinyl-wrap" aria-hidden="true">
-        <div class="vinyl-record" id="vinylRecord">
-          <span class="vinyl-record__label">P&amp;E</span>
-        </div>
+        <div class="vinyl-record" id="vinylRecord"><span class="vinyl-record__label">P&amp;E</span></div>
       </div>
       <div class="music-player__meta">
         <span class="music-player__eyebrow">MÚSICA PARA ESTE DÍA</span>
@@ -158,40 +219,24 @@
     </div>
 
     <div class="music-player__progress">
-      <div class="music-player__times">
-        <span id="currentTime">0:00</span>
-        <span id="trackDuration">0:00</span>
-      </div>
-      <input id="trackProgress" type="range" min="0" max="100" step="0.1" value="0"
-             aria-label="Progreso de la canción" aria-valuetext="0:00 de 0:00">
+      <input id="trackProgress" type="range" min="0" max="100" step="0.1" value="0" aria-label="Progreso de la canción" aria-valuetext="0:00 de 0:00">
+      <div class="music-player__times"><span id="currentTime">0:00</span><span id="trackDuration">0:00</span></div>
     </div>
 
     <div class="music-player__bottom">
       <div class="music-player__controls">
-        <button id="prevTrack" type="button" aria-label="Canción anterior" title="Anterior">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14M19 6l-10 6 10 6z"/></svg>
-        </button>
-        <button id="playPause" class="music-player__play" type="button" aria-label="Reproducir música" title="Reproducir">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 10 6-10 6z" fill="currentColor" stroke="none"/></svg>
-        </button>
-        <button id="nextTrack" type="button" aria-label="Siguiente canción" title="Siguiente">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M5 6l10 6-10 6z"/></svg>
-        </button>
+        <button id="prevTrack" type="button" aria-label="Canción anterior" title="Anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14M19 6l-10 6 10 6z"/></svg></button>
+        <button id="playPause" class="music-player__play" type="button" aria-label="Reproducir música" title="Reproducir"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 10 6-10 6z" fill="currentColor" stroke="none"/></svg></button>
+        <button id="nextTrack" type="button" aria-label="Siguiente canción" title="Siguiente"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M5 6l10 6-10 6z"/></svg></button>
       </div>
-      <label class="music-player__volume" for="musicVolume">
-        <span class="music-player__volume-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M4 10v4h4l5 4V6l-5 4H4zM16 9a5 5 0 0 1 0 6"/></svg>
-        </span>
-        <span>Volumen</span>
+      <div class="music-player__volume">
+        <button id="muteMusic" type="button" aria-label="Silenciar música" title="Silenciar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h4l5 4V6l-5 4H4z"/><path d="M16 9a5 5 0 0 1 0 6M18.5 6.5a9 9 0 0 1 0 11"/></svg></button>
         <input id="musicVolume" type="range" min="0" max="1" step="0.05" value="0.55" aria-label="Volumen">
-      </label>
-      <button id="muteMusic" type="button" aria-label="Silenciar música" title="Silenciar">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h4l5 4V6l-5 4H4zM16 9a5 5 0 0 1 0 6"/></svg>
-      </button>
+      </div>
     </div>
   </aside>
 
-  <button class="music-toggle" id="musicToggle" type="button" aria-label="Mostrar reproductor" aria-expanded="false" title="Mostrar reproductor">
+  <button class="music-toggle" id="musicToggle" type="button" aria-label="Mostrar reproductor" aria-expanded="false" aria-controls="musicPlayer" title="Mostrar reproductor" hidden>
     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/></svg>
   </button>
 </body>
