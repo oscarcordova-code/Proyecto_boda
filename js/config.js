@@ -57,6 +57,9 @@ window.WEDDING_CONFIG = {
         ]
     },
 
+    // Pétalos dorados que caen despacio después de abrir la carta. Pon false para desactivarlos.
+    petals: true,
+
     // Número internacional, solo dígitos, sin +, espacios ni guiones.
     // Ejemplo para México: "5212221234567"
     whatsappNumber: "",

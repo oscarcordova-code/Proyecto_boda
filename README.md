@@ -106,3 +106,5 @@ git push -u origin feature/nombre-del-cambio
 ```
 
 No suban información privada de invitados ni archivos innecesarios. Optimicen las imágenes antes de agregarlas al repositorio. Para la galería, pueden usar JPG o WebP, con el lado mayor cercano a 1600 px y procurando que cada archivo pese menos de 500 KB. Solo deben copiar las fotos a `assets/images/galeria/` y añadir sus rutas en `js/config.js`; no hace falta modificar el HTML ni el JavaScript.
+
+Luvia de flores idea de backround, petalos

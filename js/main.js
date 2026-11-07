@@ -164,6 +164,106 @@
     }
   }
 
+  /* ---------- Pétalos dorados ---------- */
+  // Lentos, translúcidos y al fondo (detrás del contenido). Empiezan al terminar de abrirse la carta.
+  // No se activan con movimiento reducido, ahorro de datos ni si config.petals === false.
+
+  const petalCanvas = $("#petalCanvas");
+  const pctx = petalCanvas ? petalCanvas.getContext("2d") : null;
+  const saveData = Boolean(navigator.connection && navigator.connection.saveData);
+  const petalsAllowed = Boolean(pctx) && !motionOff && !saveData && config.petals !== false;
+  const petalTones = [[201, 169, 106], [227, 207, 163], [240, 222, 178], [169, 138, 79]];
+  const petals = [];
+  let petalFrame = 0;
+  let petalLast = 0;
+  let petalW = 0;
+  let petalH = 0;
+  let petalsStarted = false;
+
+  const sizePetalCanvas = () => {
+    if (!petalCanvas || !pctx) return;
+    const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
+    petalW = window.innerWidth;
+    petalH = window.innerHeight;
+    petalCanvas.width = Math.round(petalW * ratio);
+    petalCanvas.height = Math.round(petalH * ratio);
+    pctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+  };
+
+  const spawnPetal = (petal, first) => {
+    const depth = Math.random(); // 0 = lejos y tenue, 1 = cerca y más nítido
+    petal.depth = depth;
+    petal.x = Math.random() * petalW;
+    // Al empezar, los pétalos se reparten por la pantalla (con aparición suave) para que el flujo sea constante desde el inicio.
+    petal.y = first ? Math.random() * petalH * 0.7 - 30 : -30 - Math.random() * 60;
+    petal.size = 6 + depth * 9;
+    petal.speed = 15 + depth * 24;
+    petal.drift = 10 + Math.random() * 18;
+    petal.sway = 0.35 + Math.random() * 0.5;
+    petal.phase = Math.random() * Math.PI * 2;
+    petal.rot = Math.random() * Math.PI * 2;
+    petal.spin = (Math.random() - 0.5) * 0.9;
+    petal.flip = Math.random() * Math.PI * 2;
+    petal.flipSpeed = 0.6 + Math.random() * 1.1;
+    petal.alpha = 0.26 + depth * 0.3;
+    petal.tone = petalTones[Math.floor(Math.random() * petalTones.length)];
+    petal.t = 0;
+    petal.wait = first ? Math.random() * 2.5 : Math.random() * 1.2; // reaparecen enseguida: flujo continuo
+    return petal;
+  };
+
+  const drawPetal = (p) => {
+    const s = p.size;
+    const squash = Math.abs(Math.cos(p.flip)) * 0.8 + 0.2; // simula que el pétalo gira en el aire
+    pctx.save();
+    pctx.translate(p.x, p.y);
+    pctx.rotate(p.rot);
+    pctx.scale(squash, 1);
+    // Aparecen y se desvanecen suavemente (al nacer y al llegar abajo).
+    const fade = Math.min(p.t / 1.5, 1) * Math.min(Math.max((petalH - p.y) / 90, 0), 1);
+    pctx.fillStyle = `rgba(${p.tone[0]},${p.tone[1]},${p.tone[2]},${p.alpha * fade * (0.55 + squash * 0.45)})`;
+    pctx.beginPath();
+    pctx.moveTo(0, -s);
+    pctx.bezierCurveTo(s * 0.95, -s * 0.5, s * 0.7, s * 0.7, 0, s);
+    pctx.bezierCurveTo(-s * 0.7, s * 0.7, -s * 0.95, -s * 0.5, 0, -s);
+    pctx.fill();
+    pctx.restore();
+  };
+
+  const stepPetals = (now) => {
+    petalFrame = requestAnimationFrame(stepPetals);
+    const dt = Math.min((now - petalLast) / 1000, 0.05);
+    petalLast = now;
+    pctx.clearRect(0, 0, petalW, petalH);
+    petals.forEach((p) => {
+      if (p.wait > 0) { p.wait -= dt; return; }
+      p.t += dt;
+      p.y += p.speed * dt;
+      p.x += (Math.sin(p.t * p.sway + p.phase) * p.drift + 5) * dt; // balanceo + brisa leve
+      p.rot += p.spin * dt;
+      p.flip += p.flipSpeed * dt;
+      if (p.y > petalH + 30 || p.x > petalW + 40 || p.x < -40) spawnPetal(p, false);
+      drawPetal(p);
+    });
+  };
+
+  const startPetals = () => {
+    if (!petalsAllowed || petalsStarted) return;
+    petalsStarted = true;
+    sizePetalCanvas();
+    const count = window.innerWidth < 700 ? 18 : 30;
+    for (let i = 0; i < count; i++) petals.push(spawnPetal({}, true));
+    petalCanvas.classList.add("is-on");
+    petalLast = performance.now();
+    petalFrame = requestAnimationFrame(stepPetals);
+    window.addEventListener("resize", sizePetalCanvas, { passive: true });
+    // Sin gastar batería en segundo plano.
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) { cancelAnimationFrame(petalFrame); petalFrame = 0; }
+      else if (!petalFrame) { petalLast = performance.now(); petalFrame = requestAnimationFrame(stepPetals); }
+    });
+  };
+
   /* ---------- Apertura de la invitación ---------- */
 
   const gate = $("#invitationGate");
@@ -233,6 +333,9 @@
 
       // Solo ahora (tras la interacción) se intenta reproducir la música.
       startMusic();
+
+      // Los pétalos comienzan a caer cuando la carta ya se abrió.
+      window.setTimeout(startPetals, motionOff ? 0 : 2400);
 
       const main = $("#contenido");
       if (main) main.focus({ preventScroll: true });
