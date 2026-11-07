@@ -242,6 +242,26 @@
     document.body.classList.remove("gate-locked");
   }
 
+  /* ---------- Iluminación ambiental por sección ---------- */
+  // Un solo IntersectionObserver observa una franja fina en el centro de la pantalla y
+  // escribe body[data-glow]; el CSS mueve la luz con transform/opacity. Sin listeners extra.
+  let glowFromView = "hero";
+  let glowAtEnd = false;
+  const applyGlow = () => { document.body.dataset.glow = glowAtEnd ? "footer" : glowFromView; };
+  applyGlow();
+  const glowTargets = $$("[data-glow]");
+  if ("IntersectionObserver" in window && glowTargets.length) {
+    const glowObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          glowFromView = entry.target.dataset.glow;
+          applyGlow();
+        }
+      });
+    }, { rootMargin: "-48% 0px -48% 0px" });
+    glowTargets.forEach((target) => glowObserver.observe(target));
+  }
+
   /* ---------- Progreso de scroll y botón «volver arriba» ---------- */
 
   const progressBar = $("#scrollProgress");
@@ -284,6 +304,8 @@
       if (scrollHint) scrollHint.classList.toggle("is-gone", window.scrollY > 40);
       if (heroEl && !motionOff) heroEl.style.setProperty("--hero", Math.min(window.scrollY / Math.max(heroEl.offsetHeight, 1), 1).toFixed(3));
       updateScrub();
+      const atEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 60;
+      if (atEnd !== glowAtEnd) { glowAtEnd = atEnd; applyGlow(); }
       scrollTicking = false;
     });
   };
@@ -465,6 +487,19 @@
     lightboxClose?.focus();
   };
 
+  const buildGalleryEmpty = () => {
+    const box = document.createElement("div");
+    box.className = "gallery-empty";
+    const frames = document.createElement("div");
+    frames.className = "gallery-empty__frames";
+    frames.setAttribute("aria-hidden", "true");
+    for (let i = 0; i < 3; i++) frames.append(document.createElement("i"));
+    const text = document.createElement("p");
+    text.textContent = "Pronto compartiremos fotografías especiales.";
+    box.append(frames, text);
+    return box;
+  };
+
   if (gallery && photos.length) {
     gallery.replaceChildren();
     photos.slice().forEach((photo, index) => {
@@ -482,10 +517,7 @@
         if (at >= 0) photos.splice(at, 1);
         button.remove();
         if (!gallery.children.length) {
-          const empty = document.createElement("div");
-          empty.className = "gallery-empty";
-          empty.textContent = "Pronto compartiremos fotografías especiales.";
-          gallery.append(empty);
+          gallery.append(buildGalleryEmpty());
         }
       });
       button.append(img);

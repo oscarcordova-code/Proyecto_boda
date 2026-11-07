@@ -50,8 +50,10 @@
     </div>
   </div>
 
+  <div class="ambient" id="ambient" aria-hidden="true"></div>
+
   <div id="app">
-    <header class="cover" id="inicio">
+    <header class="cover" id="inicio" data-glow="hero">
       <p class="eyebrow" data-text="intro">CON ALEGRÍA EN EL CORAZÓN</p>
       <p class="cover__names" aria-label="Paty y Edy"><span data-text="partnerOne">Paty</span><i aria-hidden="true">&amp;</i><span data-text="partnerTwo">Edy</span></p>
       <div class="rule" aria-hidden="true"><span></span><b>✦</b><span></span></div>
@@ -61,7 +63,7 @@
 
     <main id="contenido" tabindex="-1">
       <!-- 1. Bienvenida -->
-      <section class="welcome section-shell" aria-labelledby="welcomeTitle">
+      <section class="welcome section-shell" data-glow="welcome" aria-labelledby="welcomeTitle">
         <p class="eyebrow">UN DÍA PARA RECORDAR</p>
         <h2 id="welcomeTitle">¡Nos casamos!</h2>
         <p class="lead">Hay momentos que se vuelven inolvidables cuando se comparten con las personas que queremos. Será un honor que nos acompañes a celebrar esta nueva etapa de nuestras vidas.</p>
@@ -69,7 +71,7 @@
       </section>
 
       <!-- 2. Ubicación -->
-      <section class="location band" id="ubicacion" aria-labelledby="locationTitle">
+      <section class="location band" id="ubicacion" data-glow="location" aria-labelledby="locationTitle">
         <div class="section-shell">
           <div class="pin" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.1-7-11.2A7 7 0 0 1 19 9.8C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.8" r="2.4"/></svg>
@@ -83,7 +85,7 @@
       </section>
 
       <!-- 3. Cuenta regresiva -->
-      <section class="countdown-section section-shell" aria-labelledby="countdownTitle">
+      <section class="countdown-section section-shell" data-glow="countdown" aria-labelledby="countdownTitle">
         <p class="eyebrow">LA CUENTA REGRESIVA COMIENZA</p>
         <h2 id="countdownTitle">Cada vez falta menos</h2>
         <div class="countdown" id="countdown" role="timer" aria-label="Tiempo restante para la boda">
@@ -96,7 +98,7 @@
       </section>
 
       <!-- 4. Detalles -->
-      <section class="details band" id="detalles" aria-labelledby="detailsTitle">
+      <section class="details band" id="detalles" data-glow="details" aria-labelledby="detailsTitle">
         <div class="section-shell">
           <p class="eyebrow">RESERVA LA FECHA</p>
           <h2 id="detailsTitle">Detalles del evento</h2>
@@ -120,7 +122,7 @@
       </section>
 
       <!-- 5. Código de vestimenta -->
-      <section class="dress section-shell" id="vestimenta" aria-labelledby="dressTitle">
+      <section class="dress section-shell" id="vestimenta" data-glow="dress" aria-labelledby="dressTitle">
         <p class="eyebrow">CÓMO VESTIR</p>
         <h2 id="dressTitle">Código de vestimenta</h2>
         <div class="dress-grid">
@@ -137,18 +139,21 @@
       </section>
 
       <!-- 6. Galería -->
-      <section class="gallery-section band" id="galeria" aria-labelledby="galleryTitle">
+      <section class="gallery-section band" id="galeria" data-glow="gallery" aria-labelledby="galleryTitle">
         <div class="section-shell">
           <p class="eyebrow">PEQUEÑOS GRANDES MOMENTOS</p>
           <h2 id="galleryTitle">Nuestra historia</h2>
           <div class="gallery" id="gallery">
-            <div class="gallery-empty">Pronto compartiremos fotografías especiales.</div>
+            <div class="gallery-empty">
+              <div class="gallery-empty__frames" aria-hidden="true"><i></i><i></i><i></i></div>
+              <p>Pronto compartiremos fotografías especiales.</p>
+            </div>
           </div>
         </div>
       </section>
 
       <!-- 7. Confirmación -->
-      <section class="rsvp section-shell" id="confirmacion" aria-labelledby="rsvpTitle">
+      <section class="rsvp section-shell" id="confirmacion" data-glow="rsvp" aria-labelledby="rsvpTitle">
         <p class="eyebrow">SERÍA UN HONOR CONTAR CONTIGO</p>
         <h2 id="rsvpTitle">¿Nos acompañas?</h2>
         <p class="lead">Confirma tu asistencia y se abrirá WhatsApp con tu mensaje listo para enviar.</p>
@@ -181,7 +186,7 @@
       </section>
     </main>
 
-    <footer class="footer">
+    <footer class="footer" data-glow="footer">
       <div class="rule" aria-hidden="true"><span></span><b>✦</b><span></span></div>
       <p>Con amor,</p>
       <strong data-text="couple">Paty &amp; Edy</strong>
