@@ -20,30 +20,25 @@ window.WEDDING_CONFIG = {
 
     // Fecha y hora del evento. Formato: "AAAA-MM-DDTHH:MM:SS"
     // Ejemplo (ilustrativo, no es la fecha real): "2027-06-12T16:00:00"
-    weddingDate: "",
+    weddingDate: "2027-07-31T00:00:00",   // Falta la hora: el contador cuenta hasta el inicio del día. Cámbiala al confirmar el horario.
 
-    // Ubicación principal del evento (aparece justo después de la bienvenida).
+    // Detalles por momento del día (sección «Detalles del evento»).
     // mapUrl: enlace de Google Maps que empiece con https://
-    venue: {
-        name: "",
-        address: "",
-        mapUrl: ""
-    },
-
-    // Detalles por momento del día. Si ceremonia y recepción son en el
-    // mismo salón, basta con completar el horario y dejar lugar/dirección vacíos.
+    // image: foto opcional; si la ruta falla, la foto simplemente no se muestra.
     ceremony: {
         time: "",
-        venue: "",
-        address: "",
-        mapUrl: ""
+        venue: "Parroquia de Nuestra Señora de la Esperanza",
+        address: "Circuito Juan Pablo II 3307, Col. Ánimas\n72400 Heroica Puebla de Zaragoza, Pue.",
+        mapUrl: "https://maps.app.goo.gl/zdprE7Be5Zsmt3Qz9",
+        image: { src: "assets/images/parroquia.jpg", alt: "Parroquia de Nuestra Señora de la Esperanza" }
     },
 
     reception: {
         time: "",
-        venue: "",
-        address: "",
-        mapUrl: ""
+        venue: "Salón Jardín Imagine",
+        address: "Privada Santa Fe 7912, Col. Santa Cruz Buenavista Norte\n72110 Heroica Puebla de Zaragoza, Pue.",
+        mapUrl: "https://maps.app.goo.gl/u45X2VEazKMnoLkM9",
+        image: { src: "assets/images/salon.jpg", alt: "Fachada del salón de la recepción" }
     },
 
     // Código de vestimenta. "men" vacío = "Por confirmar".

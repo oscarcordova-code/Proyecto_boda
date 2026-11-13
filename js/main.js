@@ -418,7 +418,7 @@
 
   /* ---------- Animaciones al desplazarse ---------- */
 
-  const revealItems = $$(".welcome > *, .location .section-shell > *, .countdown-section > *, .details .section-shell > :not(.event-grid), .event-card, .dress > :not(.dress-grid), .dress-card, .gallery-section .section-shell > *, .rsvp > *, .footer > *");
+  const revealItems = $$(".welcome > *, .countdown-section > *, .details .section-shell > :not(.event-grid), .event-card, .dress > :not(.dress-grid), .dress-card, .gallery-section .section-shell > *, .rsvp > *, .footer > *");
   if (motionOff || !("IntersectionObserver" in window)) {
     revealItems.forEach((el) => el.classList.add("is-visible"));
   } else {
@@ -439,19 +439,6 @@
       observer.observe(el);
     });
   }
-
-  /* ---------- Ubicación principal ---------- */
-
-  const venue = config.venue || {};
-  const hasVenueName = Boolean(venue.name && venue.name.trim());
-  const hasVenueAddress = setOptional("#venueAddress", venue.address);
-  setText("#venueName", hasVenueName ? venue.name : "", "Ubicación por confirmar");
-  if (!hasVenueName && hasVenueAddress) {
-    // Hay dirección pero no nombre: se muestra solo la dirección.
-    const nameEl = $("#venueName");
-    if (nameEl) nameEl.hidden = true;
-  }
-  setLink("#venueMap", venue.mapUrl);
 
   /* ---------- Fecha y cuenta regresiva ---------- */
 
@@ -521,6 +508,16 @@
     setOptional(venueSel, item.venue);
     setOptional(address, item.address);
     setLink(map, item.mapUrl);
+    // Foto opcional de la tarjeta; si falta o falla, no se muestra.
+    const photo = $(`#${key}Photo`);
+    const img = $(`#${key}Image`);
+    const src = item.image && typeof item.image.src === "string" ? item.image.src.trim() : "";
+    if (photo && img && src) {
+      img.alt = item.image.alt || "";
+      img.addEventListener("load", () => { photo.hidden = false; });
+      img.addEventListener("error", () => { photo.hidden = true; });
+      img.src = src;
+    }
   });
 
   /* ---------- Código de vestimenta ---------- */

@@ -70,20 +70,6 @@
         <div class="signature"><span>Con cariño,</span><strong data-text="couple">Paty &amp; Edy</strong></div>
       </section>
 
-      <!-- 2. Ubicación -->
-      <section class="location band" id="ubicacion" data-glow="location" aria-labelledby="locationTitle">
-        <div class="section-shell">
-          <div class="pin" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.1-7-11.2A7 7 0 0 1 19 9.8C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.8" r="2.4"/></svg>
-          </div>
-          <p class="eyebrow">DÓNDE CELEBRAREMOS</p>
-          <h2 id="locationTitle">Ubicación del evento</h2>
-          <p class="location__name" id="venueName">Ubicación por confirmar</p>
-          <p class="location__address" id="venueAddress" hidden></p>
-          <a class="button button--outline" id="venueMap" href="#" target="_blank" rel="noopener noreferrer" hidden>Ver ubicación en Google Maps <span aria-hidden="true">↗</span></a>
-        </div>
-      </section>
-
       <!-- 3. Cuenta regresiva -->
       <section class="countdown-section section-shell" data-glow="countdown" aria-labelledby="countdownTitle">
         <p class="eyebrow">LA CUENTA REGRESIVA COMIENZA</p>
@@ -100,11 +86,15 @@
       <!-- 4. Detalles -->
       <section class="details band" id="detalles" data-glow="details" aria-labelledby="detailsTitle">
         <div class="section-shell">
+          <div class="pin" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.1-7-11.2A7 7 0 0 1 19 9.8C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.8" r="2.4"/></svg>
+          </div>
           <p class="eyebrow">RESERVA LA FECHA</p>
           <h2 id="detailsTitle">Detalles del evento</h2>
           <div class="event-grid">
             <article class="event-card">
               <p class="eyebrow">CEREMONIA</p>
+              <figure class="event-photo" id="ceremonyPhoto" hidden><img id="ceremonyImage" alt="" width="800" height="557" decoding="async"></figure>
               <h3 id="ceremonyTime">Horario por confirmar</h3>
               <p class="event-card__place" id="ceremonyVenue" hidden></p>
               <p class="event-card__address" id="ceremonyAddress" hidden></p>
@@ -112,6 +102,7 @@
             </article>
             <article class="event-card">
               <p class="eyebrow">RECEPCIÓN</p>
+              <figure class="event-photo" id="receptionPhoto" hidden><img id="receptionImage" alt="" width="1024" height="768" decoding="async"></figure>
               <h3 id="receptionTime">Horario por confirmar</h3>
               <p class="event-card__place" id="receptionVenue" hidden></p>
               <p class="event-card__address" id="receptionAddress" hidden></p>
